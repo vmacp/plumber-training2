@@ -1,0 +1,21 @@
+name: Plumber
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write   # envoi des findings dans Security > Code scanning
+
+jobs:
+  plumber:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: getplumber/plumber@5067047ef71856a116f7aaf2d52fed93b1c546fa # v0.5.11
+        with:
+          soft-fail: "true"      # pour l'instant on observe, sans bloquer
